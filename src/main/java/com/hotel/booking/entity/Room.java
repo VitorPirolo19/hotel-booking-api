@@ -20,6 +20,7 @@ public class Room {
     private Integer capacity_of_people;
     private BigDecimal price_per_night;
     @OneToMany(mappedBy = "room")
+    @JsonIgnore
     private List<Booking> bookings;
 
     @Override
@@ -81,6 +82,7 @@ public class Room {
     public void setPrice_per_night(BigDecimal price_per_night) {
         this.price_per_night = price_per_night;
     }
+
     @Override
     public String toString() {
         return "Room{" +
