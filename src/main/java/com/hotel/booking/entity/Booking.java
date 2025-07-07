@@ -1,9 +1,8 @@
 package com.hotel.booking.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -13,6 +12,8 @@ public class Booking {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
+    @ManyToOne
+    @JoinColumn(name="room_number")
     private Room room;
     private String username;
     private Integer number_of_people;
@@ -78,7 +79,6 @@ public class Booking {
     public int hashCode() {
         return Objects.hash(room, username, number_of_people, checkin, checkout);
     }
-
     @Override
     public String toString() {
         return "Booking{" +
