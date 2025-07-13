@@ -4,12 +4,11 @@ import com.hotel.booking.entity.Booking;
 import com.hotel.booking.entity.Room;
 import com.hotel.booking.service.BookingService;
 import com.hotel.booking.service.RoomService;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.print.Book;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -38,5 +37,11 @@ public class Controller {
     @GetMapping("/booking")
     public ResponseEntity<List<Booking>> getAllBookings(){
         return ResponseEntity.ok().body(bookingService.findAll());
+    }
+
+    @GetMapping("/available")
+    public ResponseEntity<List<Room>> getAllAvailableRooms(@RequestParam LocalDateTime checkin,
+                                                           @RequestParam LocalDateTime checkout){
+        return ResponseEntity.ok().body(roomService.findAllAvailableRooms(checkin, checkout));
     }
 }
