@@ -5,6 +5,7 @@ import com.hotel.booking.entity.Room;
 import com.hotel.booking.service.BookingService;
 import com.hotel.booking.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,5 +44,11 @@ public class Controller {
     public ResponseEntity<List<Room>> getAllAvailableRooms(@RequestParam LocalDateTime checkin,
                                                            @RequestParam LocalDateTime checkout){
         return ResponseEntity.ok().body(roomService.findAllAvailableRooms(checkin, checkout));
+    }
+
+    @DeleteMapping("/booking/{id}")
+    public ResponseEntity<?> deleteBookingByID(@PathVariable Long id){
+        bookingService.deleteByID(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
