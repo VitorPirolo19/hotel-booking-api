@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RoomService {
@@ -19,6 +20,10 @@ public class RoomService {
 
     public List<Room> findAll(){
         return roomRepository.findAll();
+    }
+
+    public Optional<Room> findByID(Integer id){
+        return roomRepository.findById(id);
     }
 
     public List<Room> findAllAvailableRooms(LocalDateTime checkin, LocalDateTime checkout){

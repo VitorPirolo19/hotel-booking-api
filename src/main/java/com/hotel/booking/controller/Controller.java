@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/room")
@@ -23,6 +24,11 @@ public class Controller {
     @GetMapping()
     public ResponseEntity<List<Room>> getAllRooms(){
         return ResponseEntity.ok().body(roomService.findAll());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Optional<Room>> findRoomByID(@PathVariable Integer id){
+        return ResponseEntity.ok().body(roomService.findByID(id));
     }
 
     @PostMapping()
