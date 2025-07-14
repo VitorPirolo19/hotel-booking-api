@@ -52,6 +52,11 @@ public class Controller {
         return ResponseEntity.ok().body(bookingService.findAll());
     }
 
+    @GetMapping("/booking/search")
+    public ResponseEntity<List<Booking>> findBookingsByUsername(@RequestParam String username){
+        return ResponseEntity.ok().body(bookingService.findByUsername(username));
+    }
+
     @GetMapping("/available")
     public ResponseEntity<List<Room>> getAllAvailableRooms(@RequestParam LocalDateTime checkin,
                                                            @RequestParam LocalDateTime checkout){

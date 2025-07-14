@@ -21,6 +21,10 @@ public class BookingService {
         return bookingRepository.findAll();
     }
 
+    public List<Booking> findByUsername(String username){
+        return bookingRepository.findByUsername(username);
+    }
+
     public void deleteByID(Long id){
         bookingRepository.deleteById(id);
     }
