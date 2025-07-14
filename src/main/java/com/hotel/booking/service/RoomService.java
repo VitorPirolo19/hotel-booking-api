@@ -29,4 +29,8 @@ public class RoomService {
     public List<Room> findAllAvailableRooms(LocalDateTime checkin, LocalDateTime checkout){
         return roomRepository.findAvailableRooms(checkin, checkout);
     }
+
+    public void deleteByID(Integer id){
+        roomRepository.deleteById(id);
+    }
 }

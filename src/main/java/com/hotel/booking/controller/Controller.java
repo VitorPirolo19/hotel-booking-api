@@ -36,6 +36,12 @@ public class Controller {
         return ResponseEntity.ok().body(roomService.saveRoom(room));
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteRoomByID(@PathVariable Integer id){
+        roomService.deleteByID(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
     @PostMapping("/booking")
     public ResponseEntity<Booking> saveBooking(@RequestBody Booking booking){
         return ResponseEntity.ok().body(bookingService.saveBooking(booking));
