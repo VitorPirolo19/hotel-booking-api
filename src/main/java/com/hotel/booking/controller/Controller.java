@@ -1,5 +1,6 @@
 package com.hotel.booking.controller;
 
+import com.hotel.booking.dto.BookingDTO;
 import com.hotel.booking.entity.Booking;
 import com.hotel.booking.entity.Room;
 import com.hotel.booking.service.BookingService;
@@ -43,7 +44,17 @@ public class Controller {
     }
 
     @PostMapping("/booking")
-    public ResponseEntity<Booking> saveBooking(@RequestBody Booking booking){
+    public ResponseEntity<Booking> saveBooking(@RequestBody BookingDTO bookingDTO){
+        Optional<Room> room = roomService.findByID(bookingDTO.getRoomNumber());
+
+        Booking booking = new Booking();
+        if(room.isPresent()) {
+            booking.setRoom(room.get());
+            booking.setUsername(bookingDTO.getUsername());
+            booking.setNumber_of_people(bookingDTO.getNumberOfPeople());
+            booking.setCheckin(bookingDTO.getCheckin());
+            booking.setCheckout(bookingDTO.getCheckout());
+        }
         return ResponseEntity.ok().body(bookingService.saveBooking(booking));
     }
 
