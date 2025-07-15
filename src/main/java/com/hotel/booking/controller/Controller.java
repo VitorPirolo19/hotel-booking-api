@@ -3,6 +3,7 @@ package com.hotel.booking.controller;
 import com.hotel.booking.dto.BookingDTO;
 import com.hotel.booking.entity.Booking;
 import com.hotel.booking.entity.Room;
+import com.hotel.booking.exception.RoomException;
 import com.hotel.booking.service.BookingService;
 import com.hotel.booking.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,13 +49,13 @@ public class Controller {
         Optional<Room> room = roomService.findByID(bookingDTO.getRoomNumber());
 
         Booking booking = new Booking();
-        if(room.isPresent()) {
-            booking.setRoom(room.get());
-            booking.setUsername(bookingDTO.getUsername());
-            booking.setNumber_of_people(bookingDTO.getNumberOfPeople());
-            booking.setCheckin(bookingDTO.getCheckin());
-            booking.setCheckout(bookingDTO.getCheckout());
-        }
+
+        booking.setRoom(room.orElseThrow(() -> new RoomException("Room not found")));
+        booking.setUsername(bookingDTO.getUsername());
+        booking.setNumber_of_people(bookingDTO.getNumberOfPeople());
+        booking.setCheckin(bookingDTO.getCheckin());
+        booking.setCheckout(bookingDTO.getCheckout());
+
         return ResponseEntity.ok().body(bookingService.saveBooking(booking));
     }
 
