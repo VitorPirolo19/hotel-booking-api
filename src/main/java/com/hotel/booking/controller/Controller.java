@@ -1,6 +1,7 @@
 package com.hotel.booking.controller;
 
 import com.hotel.booking.dto.BookingDTO;
+import com.hotel.booking.dto.RoomDTO;
 import com.hotel.booking.entity.Booking;
 import com.hotel.booking.entity.Room;
 import com.hotel.booking.exception.RoomException;
@@ -35,8 +36,8 @@ public class Controller {
     }
 
     @PostMapping()
-    public ResponseEntity<Room> saveRoom(@RequestBody Room room){
-        return ResponseEntity.ok().body(roomService.saveRoom(room));
+    public ResponseEntity<Room> saveRoom(@RequestBody RoomDTO roomDTO){
+        return ResponseEntity.ok().body(roomService.saveRoom(roomDTO));
     }
 
     @DeleteMapping("/{id}")

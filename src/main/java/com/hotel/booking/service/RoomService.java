@@ -1,5 +1,6 @@
 package com.hotel.booking.service;
 
+import com.hotel.booking.dto.RoomDTO;
 import com.hotel.booking.entity.Room;
 import com.hotel.booking.repository.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,13 @@ public class RoomService {
     @Autowired
     private RoomRepository roomRepository;
 
-    public Room saveRoom(Room room){
+    public Room saveRoom(RoomDTO roomDTO){
+        Room room = new Room();
+        room.setNumber(roomDTO.getNumber());
+        room.setRoom_type(roomDTO.getRoom_type());
+        room.setDescription(roomDTO.getDescription());
+        room.setCapacity_of_people(roomDTO.getCapacity_of_people());
+        room.setPrice_per_night(roomDTO.getPrice_per_night());
         return roomRepository.save(room);
     }
 
