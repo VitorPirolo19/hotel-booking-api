@@ -52,13 +52,11 @@ public class Controller {
     }
 
     @GetMapping("/bookings")
-    public ResponseEntity<List<Booking>> getAllBookings(){
-        return ResponseEntity.ok().body(bookingService.findAll());
-    }
-
-    @GetMapping("/bookings/search")
-    public ResponseEntity<List<Booking>> findBookingsByUsername(@RequestParam String username){
-        return ResponseEntity.ok().body(bookingService.findByUsername(username));
+    public ResponseEntity<List<Booking>> getBookings(
+            @RequestParam(required=false) String username,
+            @RequestParam(required=false) Integer room_number
+            ){
+        return ResponseEntity.ok().body(bookingService.find(username,room_number));
     }
 
     @GetMapping("/available")

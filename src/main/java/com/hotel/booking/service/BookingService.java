@@ -44,13 +44,16 @@ public class BookingService {
         }
     }
 
-    public List<Booking> findAll(){
-        return bookingRepository.findAll();
+    public List<Booking> find(String username, Integer roomNumber){
+        if (username != null){
+            return bookingRepository.findByUsername(username);
+        }
+       if (roomNumber != null){
+           return bookingRepository.findByRoomNumber(roomNumber);
+       }
+       return bookingRepository.findAll();
     }
 
-    public List<Booking> findByUsername(String username){
-        return bookingRepository.findByUsername(username);
-    }
 
     public void deleteByID(Long id){
         bookingRepository.deleteById(id);

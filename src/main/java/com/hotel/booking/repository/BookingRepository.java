@@ -14,4 +14,9 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
             SELECT u from bookings u WHERE username = ?1
             """)
     List<Booking> findByUsername(String username);
+
+    @Query("""
+            SELECT u FROM bookings u WHERE u.room.number = ?1
+            """)
+    List<Booking> findByRoomNumber(Integer roomNumber);
 }
