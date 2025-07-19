@@ -11,7 +11,9 @@ import com.hotel.booking.repository.BookingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Service
@@ -35,6 +37,7 @@ public class BookingService {
             booking.setNumber_of_people(bookingDTO.getNumberOfPeople());
             booking.setCheckin(bookingDTO.getCheckin());
             booking.setCheckout(bookingDTO.getCheckout());
+            booking.setPrice(calculatePrice(bookingDTO, room));
             return bookingRepository.save(booking);
         }else{
             throw new RoomUnavailableException("Room is not available in the selected date range");
@@ -63,5 +66,10 @@ public class BookingService {
         if (room.getCapacity_of_people() < dto.getNumberOfPeople()) {
             throw new InvalidNumberOfPeopleException("the number of people cannot be bigger than the room capacity");
         }
+    }
+    private BigDecimal calculatePrice(BookingDTO bookingDTO, Room room){
+        BigDecimal numberOfDays = BigDecimal.valueOf(ChronoUnit.DAYS.between(bookingDTO.getCheckin(), bookingDTO.getCheckout()));
+        BigDecimal price = numberOfDays.multiply(room.getPrice_per_night());
+        return price;
     }
 }

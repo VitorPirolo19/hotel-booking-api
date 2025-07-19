@@ -3,6 +3,7 @@ package com.hotel.booking.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -19,6 +20,15 @@ public class Booking {
     private Integer number_of_people;
     private LocalDateTime checkin;
     private LocalDateTime checkout;
+    private BigDecimal price;
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
 
     public Long getId() {
         return id;
@@ -72,13 +82,14 @@ public class Booking {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Booking booking = (Booking) o;
-        return Objects.equals(room, booking.room) && Objects.equals(username, booking.username) && Objects.equals(number_of_people, booking.number_of_people) && Objects.equals(checkin, booking.checkin) && Objects.equals(checkout, booking.checkout);
+        return Objects.equals(id, booking.id) && Objects.equals(room, booking.room) && Objects.equals(username, booking.username) && Objects.equals(number_of_people, booking.number_of_people) && Objects.equals(checkin, booking.checkin) && Objects.equals(checkout, booking.checkout) && Objects.equals(price, booking.price);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(room, username, number_of_people, checkin, checkout);
+        return Objects.hash(id, room, username, number_of_people, checkin, checkout, price);
     }
+
     @Override
     public String toString() {
         return "Booking{" +
@@ -88,6 +99,7 @@ public class Booking {
                 ", number_of_people=" + number_of_people +
                 ", checkin=" + checkin +
                 ", checkout=" + checkout +
+                ", price=" + price +
                 '}';
     }
 }
