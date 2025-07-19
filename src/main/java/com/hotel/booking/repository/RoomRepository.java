@@ -23,4 +23,17 @@ public interface RoomRepository extends JpaRepository<Room, Integer>{
         """)
     List<Room> findAvailableRooms(@Param("checkin") LocalDateTime checkin,
                                   @Param("checkout") LocalDateTime checkout);
+    @Query("""
+            SELECT r FROM rooms r
+            WHERE NOT EXISTS (
+            SELECT 1 FROM bookings b
+            WHERE b.room.number = r.number
+              AND b.checkin < :checkout
+              AND b.checkout > :checkin
+            )
+            AND number = :number
+            """)
+    Room isAvailable(@Param("checkin") LocalDateTime checkin,
+                     @Param("checkout") LocalDateTime checkout,
+                     @Param("number") Integer number);
 }

@@ -33,4 +33,8 @@ public class RoomService {
     public void deleteByID(Integer id){
         roomRepository.deleteById(id);
     }
+
+    public Boolean isAvailable(LocalDateTime checkin, LocalDateTime checkout, Integer number){
+        return roomRepository.isAvailable(checkin,checkout,number) != null;
+    }
 }
