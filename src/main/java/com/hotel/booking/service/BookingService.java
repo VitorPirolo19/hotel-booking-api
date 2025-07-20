@@ -26,7 +26,7 @@ public class BookingService {
     private RoomService roomService;
 
     public Booking saveBooking(BookingDTO bookingDTO){
-        Room room = roomService.findByID(bookingDTO.getRoomNumber()).orElseThrow(() -> new RoomException("Room not found"));
+        Room room = roomService.findRoomByID(bookingDTO.getRoomNumber()).orElseThrow(() -> new RoomException("Room not found"));
 
         validateBookingData(bookingDTO, room);
 
@@ -44,7 +44,7 @@ public class BookingService {
         }
     }
 
-    public List<Booking> find(String username, Integer roomNumber){
+    public List<Booking> findBooking(String username, Integer roomNumber){
         if (username != null){
             return bookingRepository.findByUsername(username);
         }
@@ -55,7 +55,7 @@ public class BookingService {
     }
 
 
-    public void deleteByID(Long id){
+    public void deleteBookingByID(Long id){
         bookingRepository.deleteById(id);
     }
 

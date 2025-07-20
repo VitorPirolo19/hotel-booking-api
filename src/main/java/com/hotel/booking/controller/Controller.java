@@ -4,8 +4,6 @@ import com.hotel.booking.dto.BookingDTO;
 import com.hotel.booking.dto.RoomDTO;
 import com.hotel.booking.entity.Booking;
 import com.hotel.booking.entity.Room;
-import com.hotel.booking.exception.RoomException;
-import com.hotel.booking.exception.RoomUnavailableException;
 import com.hotel.booking.service.BookingService;
 import com.hotel.booking.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,27 +25,27 @@ public class Controller {
 
     @GetMapping()
     public ResponseEntity<List<Room>> getAllRooms(){
-        return ResponseEntity.ok().body(roomService.findAll());
+        return ResponseEntity.ok().body(roomService.findAllRooms());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Room>> findRoomByID(@PathVariable Integer id){
-        return ResponseEntity.ok().body(roomService.findByID(id));
+    public ResponseEntity<Optional<Room>> getRoom(@PathVariable Integer id){
+        return ResponseEntity.ok().body(roomService.findRoomByID(id));
     }
 
     @PostMapping()
-    public ResponseEntity<Room> saveRoom(@RequestBody RoomDTO roomDTO){
+    public ResponseEntity<Room> createRoom(@RequestBody RoomDTO roomDTO){
         return ResponseEntity.ok().body(roomService.saveRoom(roomDTO));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteRoomByID(@PathVariable Integer id){
-        roomService.deleteByID(id);
+    public ResponseEntity<?> deleteRoom(@PathVariable Integer id){
+        roomService.deleteRoomByID(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PostMapping("/bookings")
-    public ResponseEntity<Booking> saveBooking(@RequestBody BookingDTO bookingDTO){
+    public ResponseEntity<Booking> createBooking(@RequestBody BookingDTO bookingDTO){
         return ResponseEntity.ok().body(bookingService.saveBooking(bookingDTO));
     }
 
@@ -56,7 +54,7 @@ public class Controller {
             @RequestParam(required=false) String username,
             @RequestParam(required=false) Integer room_number
             ){
-        return ResponseEntity.ok().body(bookingService.find(username,room_number));
+        return ResponseEntity.ok().body(bookingService.findBooking(username,room_number));
     }
 
     @GetMapping("/available")
@@ -66,8 +64,8 @@ public class Controller {
     }
 
     @DeleteMapping("/bookings/{id}")
-    public ResponseEntity<?> deleteBookingByID(@PathVariable Long id){
-        bookingService.deleteByID(id);
+    public ResponseEntity<?> deleteBooking(@PathVariable Long id){
+        bookingService.deleteBookingByID(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

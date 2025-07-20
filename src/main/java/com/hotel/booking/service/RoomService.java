@@ -25,19 +25,19 @@ public class RoomService {
         return roomRepository.save(room);
     }
 
-    public List<Room> findAll(){
+    public List<Room> findAllRooms(){
         return roomRepository.findAll();
     }
 
-    public Optional<Room> findByID(Integer id){
+    public Optional<Room> findRoomByID(Integer id){
         return roomRepository.findById(id);
     }
 
     public List<Room> findAllAvailableRooms(LocalDateTime checkin, LocalDateTime checkout){
-        return roomRepository.findAvailableRooms(checkin, checkout);
+        return roomRepository.findAvailable(checkin, checkout);
     }
 
-    public void deleteByID(Integer id){
+    public void deleteRoomByID(Integer id){
         roomRepository.deleteById(id);
     }
 
